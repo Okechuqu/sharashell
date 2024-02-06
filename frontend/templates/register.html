@@ -1,0 +1,78 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<div class="card container"
+  style=""
+>
+  <div class="card-body">
+    <div class="text-center"
+      style="background: linear-gradient(rgba(24, 29, 56, 0.7), rgba(24, 29, 56, 0.7)),
+      url({% if site_infos.bannerImg %}{{site_infos.bannerImg.image.url}}{% endif %});
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;"
+    >
+      <img
+        class="img-fluid mx-auto d-block"
+        src="{% if site_infos.favicon %}{{site_infos.favicon.image.url}}{% endif %}"
+        alt=""
+        style="width: 9%" 
+      />
+      <h2 class="card-title  text-white">{{site_infos.bannerName}}</h2>
+      <p class=" text-white">REGISTRATION</p>
+    
+      <h5 class=" text-white">STUDENT BIO-DATA</h5>
+    </div>
+    <!-- Multi Columns Form -->
+    <form class="row g-3" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="id_fullName">Full Name</label>
+        {{ form.fullName }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_email">Email</label>
+        {{ form.email }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_phone">Phone Number</label>
+        {{ form.phone }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_password">Password</label>
+        {{ form.password }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_confirm_password">Confirm Password</label>
+        {{ form.confirm_password }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_dob">Date of Birth</label>
+        {{ form.dob }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_gender">Gender</label>
+        {{ form.gender }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_country">Country</label>
+        {{ form.country }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_state">State of Origin</label>
+        {{ form.state }}
+      </div>
+      <div class="form-group col-lg-6">
+        <label for="id_occupation">Occupation</label>
+        {{ form.occupation }}
+      </div>
+      <div class="form-group">
+        <label for="id_address">Address</label>
+        {{ form.address }}
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <!-- End Multi Columns Form -->
+  </div>
+</div>
+{% endblock content %}

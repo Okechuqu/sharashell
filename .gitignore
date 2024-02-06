@@ -1,0 +1,7 @@
+migrations
+.env
+db.sqlite3
+__pycache__
+env_sharashell
+.vscode
+media

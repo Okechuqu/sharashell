@@ -1,0 +1,125 @@
+{% load humanize %}
+{% if courses.exists %}
+
+
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        {{site_infos.coursesTitle}}
+      </h6>
+      <h1 class="mb-5">{{site_infos.coursesSubTitle}}</h1>
+    </div>
+    <div class="row g-4 justify-content-center">
+      {% for course in courses %}
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{course.id}}s">
+        <div class="course-item bg-light">
+          <div class="position-relative overflow-hidden">
+            <img 
+              class="img-fluid w-100" 
+              style="height: 200px; object-fit: cover;"
+              src="{% if course.courseImage %}{{course.courseImage.image.url}}{% endif %}" 
+              alt="{{course.courseTitle}}" />
+            <div
+              class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4"
+            >
+              <button
+                type="button"
+                class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end"
+                style="border-radius: 30px"
+                {% comment %} style="border-radius: 30px 0 0 30px" {% endcomment %}
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop{{course.id}}"
+              >
+                Read More
+              </button>
+              {% comment %} <a
+                href="{% if request.user.is_authenticated %}/checkout{% else %} {% url "register" %}{% endif %}"
+                type="button"
+                value="{{course.id}}"
+                class="flex-shrink-0 btn btn-sm btn-primary px-3"
+                style="border-radius: 0 30px 30px 0"
+              >
+                Join Now
+            </a> {% endcomment %}
+            </div>
+          </div>
+          <div class="text-center p-4 pb-0">
+            <h3 class="mb-0">₦ {{course.price|intcomma }}</h3>
+            <h5 class="mb-4">{{course.courseTitle}}</h5>
+          </div>
+          <div class="d-flex border-top">
+            <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-user-tie text-primary me-2"></i>{{course.instructorName.staff.firstName}}</small
+            >
+            <small class="flex-fill text-center border-end py-2"
+              ><i class="fa fa-clock text-primary me-2"></i>{{course.durationHours}}hrs / session</small
+            >
+            <small class="flex-fill text-center py-2"
+              ><i class="fa fa-user text-primary me-2"></i>{{course.numStudents}}</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="staticBackdrop{{course.id}}"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-{{course.id}}"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 text-center" id="staticBackdropLabel">
+                {{ course }}
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <img
+                class="img-fluid mx-auto d-block w-100"
+                src="{% if course.courseImage %}{{course.courseImage.image.url}}{% endif %}"
+                alt=""
+                style="height: 350px; object-fit: cover;"
+              />
+              <p>
+                {{course.courseShortDescription|safe}}
+              </p>
+            </div>
+            <div class="modal-footer mx-0">
+              <button
+                type="button"
+                class="flex-shrink-0 btn btn-sm btn-danger px-3 border-end"
+                style="border-radius: 30px 0 0 30px"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                value="{{course.id}}"
+                id="add-cart"
+                class="flex-shrink-0 btn btn-sm btn-primary px-3"
+                style="border-radius: 0 30px 30px 0">Join Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} 
+    </div>
+  </div>
+</div>
+
+
+
+{% endif %}

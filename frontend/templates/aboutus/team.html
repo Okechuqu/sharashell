@@ -1,0 +1,61 @@
+{% if instructors.exists %}
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        {{site_infos.teamTitle}}
+      </h6>
+      <h1 class="mb-5">{{site_infos.teamSubTitle}}</h1>
+    </div>
+    <div class="row justify-content-center g-4">
+      {% for instructor in instructors|slice:":4" %}
+      <div class=" col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.{{instructor.id}}s">
+        <div class="team-item bg-light">
+          <div class="overflow-hidden">
+            <img 
+              class="img-fluid w-100" 
+              src="{% if instructor.img %}{{instructor.img.image.url}}{% endif %}" 
+              alt="" 
+              style="height: 350px; object-fit: cover;" 
+              />
+          </div>
+          <div
+            class="position-relative d-flex justify-content-center"
+            style="margin-top: -23px"
+          >
+            <div class="bg-light d-flex justify-content-center pt-2 px-1">
+              {% if instructor.facebook_link %}
+              <a class="btn btn-sm-square btn-primary mx-1" target="_blank" href="{{instructor.facebook_link}}"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              {% endif %}
+              {% if instructor.tiktok_link %}
+              <a class="btn btn-sm-square btn-primary mx-1" target="_blank" href="{{instructor.tiktok_link}}"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+              {% endif %}
+              {% if instructor.twitter_link %}
+              <a class="btn btn-sm-square btn-primary mx-1" target="_blank" href="{{instructor.twitter_link}}"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              {% endif %}
+              {% if instructor.instagram_link %}
+              <a class="btn btn-sm-square btn-primary mx-1" target="_blank" href="{{instructor.instagram_link}}"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              {% endif %}
+            </div>
+          </div>
+          <div class="text-center p-4">
+            <h5 class="mb-0">{{instructor.staff.firstName}}</h5>
+            <small>{{instructor.designation}}</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{{ instructors.10.designation }}

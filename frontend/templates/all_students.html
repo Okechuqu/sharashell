@@ -1,0 +1,92 @@
+{% extends "base.html" %} {% block content %}
+
+<section class="bg-light-gray pt-5" style="background-color: lightgrey">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <nav aria-label="breadcrumb">
+          <ul class="breadcrumb d-flex justify-content-center">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li aria-current="page" class="breadcrumb-item active">Students</li>
+          </ul>
+        </nav>
+        <h1 class="heading">
+          Students registered at
+          <span class="accent">Sharashell Technology Limited</span> Learnable
+        </h1>
+        <p class="lead text-center">This is the list of all Students</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  {% if students.exists %}
+  <div class="container">
+    <div class="row">
+      {% for student in students %}
+      <div class="col-lg-6 pt-2">
+        <div class="box applicant">
+          <h4>{{student.fullName}}</h4>
+          <p>
+            <a class="btn btn-outline-secondary btn-sm"
+              ><i class="fa-regular fa-file-lines"></i>Email:
+              {{student.email}}</a
+            >
+          </p>
+          <p>
+            <span class="badge bg-info">Applied {{student.created}}</span>
+            <span class="badge bg-success"
+              >Contacted {{student.last_login}}</span
+            >
+          </p>
+          <div class="d-flex justify-content-between">
+            <p class="intro">{{student.address}}</p>
+            <p>Courses: {{student.coursesPaidFor}}</p>
+            <div class="image">
+              <img
+                src="{% if student.profilePhoto %}{{student.profilePhoto.image.url}}{% endif %}"
+                alt="{{student.fullName}}"
+                class="img-fluid rounded-circle"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="pages">
+          <nav
+            aria-label="Page navigation example"
+            class="d-flex justify-content-center mt-4 mb-4"
+          >
+            <ul class="pagination">
+              <li class="page-item">
+                <a href="#" aria-label="Previous" class="page-link"
+                  ><span aria-hidden="true">«</span
+                  ><span class="sr-only">Previous</span></a
+                >
+              </li>
+              <li class="page-item active">
+                <a href="#" class="page-link">1</a>
+              </li>
+              <li class="page-item"><a href="#" class="page-link">2</a></li>
+              <li class="page-item"><a href="#" class="page-link">3</a></li>
+              <li class="page-item"><a href="#" class="page-link">4</a></li>
+              <li class="page-item">
+                <a href="#" aria-label="Next" class="page-link"
+                  ><span aria-hidden="true">»</span
+                  ><span class="sr-only">Next</span></a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <p class="lead text-center">No students found</p>
+  {% endif %}
+</section>
+
+{% endblock content %}

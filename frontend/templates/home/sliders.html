@@ -1,0 +1,94 @@
+{% if sliders %}
+<div class="container-fluid p-0 mb-0">
+  <div class="owl-carousel header-carousel position-relative">
+    <div class="owl-carousel-item position-relative">
+      <img 
+        class="img-fluid w-100" 
+        style="height: 450px; object-fit: cover;" 
+        src="{% if sliders.0.img %}{{sliders.0.img.image.url}}{% endif %}" 
+        alt="{{sliders.0.name}}" />
+      <div
+        class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+      >
+        <div class="container">
+          <div class="row justify-content-start">
+            <div class="col-sm-10 col-lg-8 text-white">
+              <h5 class="text-primary text-uppercase mb-3 animated slideInDown">
+                {{sliders.0.name}}
+              </h5>
+              <h1 class="display-3 text-white animated slideInDown">
+                {{ sliders.0.title}}
+              </h1>
+              <p class="fs-5 text-white mb-4 pb-2">
+                {{sliders.0.subNote|safe}}
+              </p>
+              {% if request.user.is_authenticated %}
+              <a
+                href="/about"
+                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft rounded-3"
+                >Read More</a
+              >
+              {% else %}
+              <a
+                href="/about"
+                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft rounded-3"
+                >Read More</a
+              >
+              <a
+                href="{% url "register" %}"
+                class="btn btn-light py-md-3 px-md-5 animated slideInRight rounded-3"
+                >Join Now</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="owl-carousel-item position-relative">
+      <img 
+        class="img-fluid w-100" 
+        style="height: 450px; object-fit: cover;" 
+        src="{% if sliders.1.img %}{{sliders.1.img.image.url}}{% endif %}" 
+        alt="{{sliders.1.name}}" />
+      <div
+        class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+      >
+        <div class="container">
+          <div class="row justify-content-start">
+            <div class="col-sm-10 col-lg-8 text-white">
+              <h5 class="text-primary text-uppercase mb-3 animated slideInDown">
+                {{sliders.1.name}}
+              </h5>
+              <h1 class="display-3 text-white animated slideInDown">
+                {{ sliders.1.title}}
+              </h1>
+              <p class="fs-5 text-white mb-4 pb-2">
+                {{sliders.1.subNote|safe}}
+              </p>
+              {% if request.user.is_authenticated %}
+              <a
+                href="/about"
+                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft rounded-3"
+                >Read More</a
+              >
+              {% else %}
+              <a
+                href="/about"
+                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft rounded-3"
+                >Read More</a
+              >
+              <a
+                href="{% url "register" %}"
+                class="btn btn-light py-md-3 px-md-5 animated slideInRight rounded-3"
+                >Join Now</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

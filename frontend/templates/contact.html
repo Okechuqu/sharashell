@@ -1,0 +1,113 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- Header Start -->
+{% include "home/header.html" %}
+<!-- Header End -->
+
+{% if our_contact.exists %}
+<!-- Contact Start -->
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        {{site_infos.contactTitle}}
+      </h6>
+      <h1 class="mb-5">{{site_infos.contactSubTitle}}</h1>
+    </div>
+    <div class="row g-4">
+        {% for contact in our_contact %}
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <h5>{{contact.title}}</h5>
+        <p class="mb-4">
+          {{contact.description|safe}}
+        </p>
+        <div class="d-flex align-items-center mb-3">
+          <div
+            class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary"
+            style="width: 50px; height: 50px"
+          >
+            <i class="fa fa-map-marker-alt text-white"></i>
+          </div>
+          <div class="ms-3">
+            <h5 class="text-primary">Office</h5>
+            <p class="mb-0">{{contact.address|safe}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center mb-3">
+          <div
+            class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary"
+            style="width: 50px; height: 50px"
+          >
+            <i class="fa fa-phone-alt text-white"></i>
+          </div>
+          <div class="ms-3">
+            <h5 class="text-primary">Mobile</h5>
+            <p class="mb-0">{{contact.phone}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div
+            class="d-flex align-items-center justify-content-center flex-shrink-0 bg-primary"
+            style="width: 50px; height: 50px"
+          >
+            <i class="fa fa-envelope-open text-white"></i>
+          </div>
+          <div class="ms-3">
+            <h5 class="text-primary">Email</h5>
+            <p class="mb-0">{{contact.email}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+        <iframe 
+        class="position-relative rounded w-100 h-100"
+        src="{{contact.location}}" 
+        style="min-height: 300px; border:0;"
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+      <div class="col-lg-4 col-md-12 wow fadeInUp" data-wow-delay="0.5s">
+        <form method="post" action="{% url "enquiry" %}">
+            {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-floating">
+                {{form_eq.name}}
+                <label for="name">Your Name</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                {{form_eq.email}}
+                <label for="email">Your Email</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+              {{form_eq.subject}}
+                <label for="subject">Subject</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <label for="message">Message</label>
+                {{form_eq.message}}
+              </div>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-primary w-100 py-3" type="submit">
+                Send Message
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- Contact End -->
+{% endif %}
+{% endblock %}

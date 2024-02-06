@@ -1,0 +1,282 @@
+{% load static %} 
+{% static 'css' as css %} 
+{% static 'lib' as lib %} 
+{% static 'js' as js %} 
+{% static 'img' as img %} 
+{% static 'scss' as scss %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{{ site_infos.title }}{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+    <!-- Favicon -->
+    <link href="{% if site_infos.favicon %}{{site_infos.favicon.image.url}}{% endif %}" rel="icon" />
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{lib}}/animate/animate.min.css" rel="stylesheet" />
+    <link
+      href="{{lib}}/owlcarousel/assets/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{css}}/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Template Stylesheet -->
+    <link href="{{css}}/style_login.css" rel="stylesheet" />
+    <link href="{{css}}/style.css" rel="stylesheet" />
+
+  </head>
+
+  <body>
+    <!-- Spinner Start -->
+    <div
+      id="spinner"
+      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div
+        class="spinner-border text-primary"
+        style="width: 3rem; height: 3rem"
+        role="status"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar Start -->
+    <nav
+      class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0"
+    >
+      <a
+        href="/"
+        class="navbar-brand d-flex align-items-center px-4 px-lg-5"
+        ><h2 class="m-0 text-primary">
+          <i class="fa-solid {% if site_infos.siteIcon %}{{site_infos.siteIcon}}{% endif %} me-3"></i>{{site_infos.siteName}}
+        </h2></a
+      >
+      <button
+        type="button"
+        class="navbar-toggler me-4"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse  navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+          
+          <a href="{% url "index" %}" class="nav-item nav-link {% if request.path == '/' %} active {% endif %}">Home</a>
+          <a href="/about" class="nav-item nav-link {% if request.path == '/about/' %} active {% endif %}">About</a> 
+          <a href="/courses" class="nav-item nav-link {% if request.path == '/courses/' %} active {% endif %}">Courses</a>
+          <a href="/contact" class="nav-item nav-link {% if request.path == '/contact/' %} active {% endif %}">Contact</a>
+          {% if user.is_authenticated %}
+          {% if user.is_superuser %}
+          <div class="nav-item dropdown">
+            <a
+              href="#"
+              class="nav-link dropdown-toggle"
+              data-bs-toggle="dropdown"
+              >Pages</a
+            >
+            <div class="dropdown-menu fade-down m-0">
+              <a href="/all_students" class="dropdown-item">All Students</a>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle d-flex align-items-center"
+              data-bs-toggle="dropdown"
+
+            >
+              <div class="me-2">
+                {% comment %} <img
+                  class="img-fluid"
+                  src="{% if user.profilePhoto %}{{user.profilePhoto.image.url}}{% endif %}"
+                  alt="Photo"
+                  style="width: 20px"
+                /> {% endcomment %}
+                <p>online</p>
+              </div>
+            </a
+            >
+            <div class="dropdown-menu fade-down m-0">
+              {% comment %} <a href="/portal" class="dropdown-item">Dashboard</a> {% endcomment %}
+              <a href="{% url "logout" %}" class="dropdown-item"> Logout </a>
+            </div>
+          </div>
+        
+          {% else %} 
+          <button 
+            type="button" 
+            class="btn btn-primary py-4 px-lg-5 d-none d-lg-block ms-auto"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            style="float: right;"
+            >Join Now
+          <i
+            class="fa border fa-arrow-right animate__animated animate__fadeOutRight animate__infinite animate__slow ms-1 p-1"
+            style="border-radius: 50px; background-color: #ffffff20"
+          ></i></button>
+          <a 
+          class="nav-item nav-link d-lg-none"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          > Join Now
+          <i
+          class="fa border fa-arrow-right  ms-1 p-1"
+          style="border-radius: 50px; background-color: #11BECE20"
+          ></i></a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="wrapperq login-1q rounded-3">
+              <div class="containerq">
+                <div class="col-leftq">
+                  <div class="login-textq">
+                    <h2>Hello Techie...</h2>
+                    <p>Create your account.<br />It's totally free.</p>
+                    <a class="btn" href="{% url "register" %}">Sign Up</a>
+                    <span>OR</span>
+                  </div>
+                </div>
+                <div class="col-rightq">
+                  <div class="login-formq">
+                    <h2>Login</h2>
+                    <form method="post" action="{% url "login_view" %}">
+                      {% csrf_token %}
+                      <p>
+                        <label>Email address<span>*</span></label>
+                        <input type="email" name="email" placeholder="Email" required />
+                      </p>
+                      <p>
+                        <label>Password<span>*</span></label>
+                        <input type="password" name="password" placeholder="Password" required />
+                      </p>
+                      <p>
+                        <input type="submit" value="Sign In" />
+                      </p>
+                      <p>
+                        <a href="">Forgot your Password?</a>
+                      </p>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    {% comment %} {% if messages %}
+      {% for message in messages %}
+        <div id="dismiss" class="container alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %} {% endcomment %}
+
+    {% if messages %}
+      <div class="position-fixed top-30 start-50 translate-middle" style="z-index: 11">
+        <div id="toast-container" class="toast-container">
+          {% for message in messages %}
+            <div 
+              class="toast {{ message.tags }} fade show text-white" 
+              role="alert" 
+              aria-live="assertive" 
+              aria-atomic="true" 
+              style="background-color: {% if message.tags == 'success' %} #18BB0C {% elif message.tags == 'info' %} #5167F3 {% elif message.tags == 'warning' %} #EAF629 {% elif message.tags == 'error' %} #FF1403 {% endif %}" 
+              >
+              <div class="toast-header">
+                <strong class="me-auto">{{ message.tags }}</strong>
+              </div>
+              <div class="toast-body">
+                {{ message }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var toast = document.querySelector('.toast');
+        setTimeout(function () {
+          toast.style.display = 'none';
+        }, 4000); // 4000 milliseconds (4 seconds)
+      });
+    </script>
+
+
+    {% block content %} {% endblock %}
+
+
+
+    <!-- Footer Start -->
+    {% include "home/footer.html" %}
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"
+      ><i class="bi bi-arrow-up"></i
+    ></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{lib}}/wow/wow.min.js"></script>
+    <script src="{{lib}}/easing/easing.min.js"></script>
+    <script src="{{lib}}/waypoints/waypoints.min.js"></script>
+    <script src="{{lib}}/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+    var alert = document.getElementById('dismiss');
+    setTimeout(function () {
+      alert.style.display = 'none';
+    }, 4000); // 4000 milliseconds (4 seconds)
+  });
+    </script>
+    <script src="{{js}}/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+{% if course_category %}
+<div class="container-xxl py-5 category">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        {{site_infos.categoryTitle}}
+      </h6>
+      <h1 class="mb-5">{{site_infos.categorySubTitle}}</h1>
+    </div>
+    <div class="row g-3">
+      <div class="col-lg-7 col-md-6">
+        <div class="row g-3">
+          <div class="col-lg-12 col-md-12 wow zoomIn" data-wow-delay="0.1s">
+            <div class="position-relative d-block overflow-hidden" >
+              <img 
+                class="img-fluid w-100"
+                style="height: 250px;" 
+                src="{% if course_category.0.img %}{{ course_category.0.img.image.url}}{% endif %}" 
+                alt="{{course_category.0.title}}" />
+              <div
+                class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
+                style="margin: 1px"
+              >
+                <h5 class="m-0">{{course_category.0.title}}</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.3s">
+            <div class="position-relative d-block overflow-hidden" >
+              <img 
+                class="img-fluid w-100" 
+                style="height: 200px;"
+                src="{% if course_category.1.img %}{{ course_category.1.img.image.url}}{% endif %}" 
+                alt="{{course_category.1.title}}" />
+              <div
+                class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
+                style="margin: 1px"
+              >
+                <h5 class="m-0">{{course_category.1.title}}</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.5s">
+            <div class="position-relative d-block overflow-hidden" >
+              <img 
+                class="img-fluid w-100" 
+                style="height: 200px;"
+                src="{% if course_category.2.img %}{{ course_category.2.img.image.url}}{% endif %}" 
+                alt="{{course_category.2.title}}" />
+              <div
+                class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
+                style="margin: 1px"
+              >
+                <h5 class="m-0">{{course_category.2.title}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% if course_category.3 %}
+
+      <div
+        class="col-lg-5 col-md-6 wow zoomIn"
+        data-wow-delay="0.7s"
+        style="min-height: 350px"
+      >
+        <div class="position-relative d-block h-100 overflow-hidden" >
+          <img
+            class="img-fluid w-100 position-absolute w-100 h-100"
+            src="{% if course_category.3.img %}{{ course_category.3.img.image.url}}{% endif %}"
+            alt="{{course_category.3.title}}"
+            style="object-fit: cover"
+          />
+          <div
+            class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3"
+            style="margin: 1px"
+          >
+            <h5 class="m-0">{{course_category.3.title}}</h5>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+</div>

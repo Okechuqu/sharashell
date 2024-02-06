@@ -1,0 +1,31 @@
+{% if testimonial.exists %}
+
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+  <div class="container">
+    <div class="text-center">
+      <h6 class="section-title bg-white text-center text-primary px-3">
+        {{site_infos.teamTitle}}
+      </h6>
+      <h1 class="mb-5">{{site_infos.teamSubTitle}}</h1>
+    </div>
+    <div class="owl-carousel testimonial-carousel position-relative">
+      {% for testimony in testimonial %}
+      <div class="testimonial-item text-center">
+        <img
+          class="border rounded-circle p-2 mx-auto mb-3"
+          src="{% if testimony.img %}{{testimony.img.image.url}}{% endif %}"
+          style="width: 80px; height: 80px"
+        />
+        <h5 class="mb-0">{{testimony.studentName}}</h5>
+        <p>{{testimony.occupation}}</p>
+        <div class="testimonial-text bg-light text-center p-4">
+          <p class="mb-0">
+            {{testimony.testimonialNote}}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}

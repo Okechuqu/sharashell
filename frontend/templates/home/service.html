@@ -1,0 +1,23 @@
+{% if services.exists %}
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-4">
+      {% for service in services|slice:":4" %}
+      <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.{{service.id}}s">
+        <div class="service-item text-center pt-3">
+          <div class="p-4">
+            <i
+              style="font-size: 350%;"
+              class="bx {% if service.boxIcon %}{{service.boxIcon}}{% endif %} text-primary mb-4"
+            ></i>
+            <h5 class="mb-3">{{service.title}}</h5>
+            <p>{{service.subNote|safe}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
